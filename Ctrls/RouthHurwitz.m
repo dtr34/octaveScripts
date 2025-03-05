@@ -1,9 +1,9 @@
-function M = RouthHurwitz(coeffVector)
+function Z = RouthHurwitz(coeffVector)
 
 tableLength = length(coeffVector);
 numColumns = round(tableLength/2);
 %init table
-routhTable = zeros(tableLength,numColumns);
+routhTable = sym(zeros(tableLength,numColumns));
 %compute first row
 routhTable(1,:) = coeffVector(1,1:2:tableLength);
 %  Check if length of coefficients vector is even or odd
@@ -67,6 +67,8 @@ endfor
 
 fprintf("\n Final Routh Table \n")
 routhTable
+
+Z = routhTable;
 
 endfunction
 
