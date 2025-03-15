@@ -1,4 +1,4 @@
-function [Xpar1,Xser1,Xpar2,Xser2] = twoComponentLMatchParallel(Xs,Rs,RL)
+function reactances = twoComponentLMatchParallel(Xs,Rs,RL)
   % Check for validity of solution
   if (RL > Rs)
     disp("no solutions")
@@ -28,4 +28,9 @@ function [Xpar1,Xser1,Xpar2,Xser2] = twoComponentLMatchParallel(Xs,Rs,RL)
   % The formulas below are as given with j as the imaginary unit.
   Xser1 = -imag((1j*Xpar1*Zs) / (1j*Xpar1 + Zs))
   Xser2 = -imag((1j*Xpar2*Zs) / (1j*Xpar2 + Zs))
+  reactances = struct(...
+        'Xpar1', Xpar1, ...
+        'Xser1', Xser1, ...
+        'Xpar2', Xpar2, ...
+        'Xser2', Xser2);
 end
