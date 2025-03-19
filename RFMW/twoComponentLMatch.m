@@ -3,14 +3,24 @@ function M = twoComponentLMatch(Zs,RL, freq)
   radFreq = freq * 2*pi;
   Xs = imag(Zs);
   Rs = real(Zs);
-
-  reactancesSeries = twoComponentLMatchSeries(Xs,Rs,RL);
-  reactancesParallel = twoComponentLMatchParallel(Xs,Rs,RL);
-  fprintf("\nSeries First Reactances:\n");
-  componentValues(radFreq, reactances);
-  fprintf("\nParallel First Reactances:\n");
-  componentValues(radFreq, reactances);
+if (RL < Rs)
+    disp("no series solutions")
+   
+    M.reactancesParallel = twoComponentLMatchParallel(Xs,Rs,RL);
+    fprintf("\nParallel First Reactances:\n");
+    calculateComponents(radFreq, M.reactancesParallel);
+else
+    M.reactancesParallel = twoComponentLMatchParallel(Xs,Rs,RL);
+    fprintf("\nParallel First Reactances:\n");
+    M.componentsParallel = calculateComponents(radFreq, M.reactancesParallel);
+    M.reactancesSeries = twoComponentLMatchSeries(Xs,Rs,RL);
+    fprintf("\nSeries First Reactances:\n");
+    M.componentsSeries = calculateComponents(radFreq, M.reactancesSeries);
+  endif
   
+  
+  %when you come back to this: you will need to move the componentValues call into the individual
+  %functions, so that the no solution error check works.
   
 endfunction
 
@@ -48,13 +58,28 @@ function componentValues = calculateComponents(omega, reactances)
         fprintf('  Type: %s\n', comp.Type);
         
         if strcmp(comp.Type, 'Inductor')
-            fprintf('  Value: %.4e H\n', comp.Value);
+           if comp.Value < 1e-9
+                fprintf('  Value: %.4f pH\n', comp.Value*1e12);
+            elseif comp.Value < 1e-6
+                fprintf('  Value: %.4f nH\n', comp.Value*1e9);
+            elseif comp.Value < 1e-3
+                fprintf('  Value: %.4f µH\n', comp.Value*1e6);
+            elseif comp.Value < 1e-1
+                fprintf('  Value: %.4f mH\n', comp.Value*1e3);
+            else
+                fprintf('  Value: %.4e F\n', comp.Value);
+            end
+
         else
             % Convert to more readable units if needed
-            if comp.Value < 1e-6
-                fprintf('  Value: %.2f µF\n', comp.Value*1e6);
+            if comp.Value < 1e-9
+                fprintf('  Value: %.4f pF\n', comp.Value*1e12);
+            elseif comp.Value < 1e-6
+                fprintf('  Value: %.4f nF\n', comp.Value*1e9);
             elseif comp.Value < 1e-3
-                fprintf('  Value: %.2f nF\n', comp.Value*1e9);
+                fprintf('  Value: %.4f µF\n', comp.Value*1e6);
+            elseif comp.Value < 1e-1
+                fprintf('  Value: %.4f mF\n', comp.Value*1e3);
             else
                 fprintf('  Value: %.4e F\n', comp.Value);
             end

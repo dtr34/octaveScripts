@@ -1,9 +1,4 @@
 function reactances = twoComponentLMatchParallel(Xs,Rs,RL)
-  % Check for validity of solution
-  if (RL > Rs)
-    disp("no solutions")
-    return;
-  end
 
   % Define the source impedance: Zs = Rs + j*Xs
   Zs = Rs + 1j*Xs;

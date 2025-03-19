@@ -1,3 +1,3 @@
-function del = del(s11,s12,s21,s22)
-  del = s11*s22 - (s12*s21);
+function del = del(sparams)
+  del = sparams.s11*sparams.s22 - (sparams.s12*sparams.s21);
 end
