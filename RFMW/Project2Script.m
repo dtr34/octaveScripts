@@ -11,8 +11,8 @@ function Project2Script
   noise.Fmin = 10^(1/10);
   noise.rn = 0.1;
   
-  Zin = 75;
-  Zout = 75;
+  Ztermination= 75;
+
   sparams.Z0 = 50;
   Z0 = 50;
   
@@ -30,22 +30,30 @@ function Project2Script
   omit.VSWRi = (1+refl) / (1-refl);
   refl = sparams.s22;
   omit.VSWRo = (1+refl) / (1-refl);
-  noise.gammaS = (Zin - Z0) / (Zin + Z0);
+  noise.gammaS = (Ztermination - Z0) / (Ztermination+ Z0);
   omit.noiseFigure = noiseFigure(noise);
   omit.noiseFiguredB = 10*log10(omit.noiseFigure);
   fprintf("TPG = %d dB\nNoise Figure = F = %d dB\ninput VSWR = %d\noutput VSWR = %d\n", omit.TPGdB, omit.noiseFiguredB, omit.VSWRi,omit.VSWRo);
   
    disp("\n\n\t---\tQuestion 3 \t---\n\n"); 
+   
+   
    noise.gammaS = noise.gammaOpt;
+   
    in.gamma = noise.gammaS;
    in.Z = reflToZ(in.gamma,sparams.Z0);
+   S.gamma = conj(in.gamma);
+   S.Z = conj(in.Z);
+   
    out = gammaIn(sparams, noise.gammaS);
    L.gamma = conj(out.gamma);
    L.Z = conj(out.Z);
-   fprintf("to minimize noise figure, Gamma S = Gamma Opt:\n\nGammaS= %d\nZs = %d\n\nThen I found GammaOut\n\nGammaOut = %d \n\nThen I conjugate matched gammaL to gamma Out to maximize gain:\n\n", in.gamma, in.Z,out.gamma);
+   fprintf("to minimize noise figure, Gamma S = Gamma Opt:\n\nGammaS= %d\nZs = %d\n\nThen I found GammaOut\n\nGammaOut = %d \n\nThen I conjugate matched gammaL to gamma Out to maximize gain:\n\n", in.gamma, S.Z,out.gamma);
    fprintf("GammaL = %d\nZL = %d\n", L.gamma, L.Z);
    
-    disp("\n\n\t---\tQuestion 4 \t---\n\n");
+   disp("\n\n\t---\tQuestion 4 \t---\n\n");
+   IMN = twoComponentLMatch(in.Z, Ztermination, freq);
+   OMN = twoComponentLMatch(out.Z,Ztermination, freq);
       
 
    
