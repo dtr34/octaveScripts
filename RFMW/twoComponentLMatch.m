@@ -1,7 +1,9 @@
+%Zs and RL should both be looking into the IMN/OMN
+
 function M = twoComponentLMatch(Zs,RL, freq)
   
   radFreq = freq * 2*pi;
-  Xs = imag(Zs);
+  Xs = -imag(Zs);
   Rs = real(Zs);
 if (RL < Rs)
     disp("no series solutions")

@@ -1,5 +1,4 @@
 %Test 1 Actual
-pkg load symbolic
 
 wn = sqrt(13)
 zeta = 2/wn
