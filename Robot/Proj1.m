@@ -1,6 +1,5 @@
 %project 1 Robotics
-clear all; clc;
-pkg load symbolic
+clear; clc;
 
 %{
 DH Table

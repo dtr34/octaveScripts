@@ -1,4 +1,3 @@
-pkg load symbolic
 syms s
 
 G1s = (s+4) / ((s+3)*(s+7))
@@ -12,7 +11,7 @@ Kp = subs(Gs,s,0)
 disp(vpa(Kp));
 estep = 1/(1+Kp)
 disp(vpa(estep));
-
+ 
 Kv = subs(s*Gs,s,0)
 eramp = 1/Kv
 

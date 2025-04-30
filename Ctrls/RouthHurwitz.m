@@ -1,5 +1,5 @@
 function Z = RouthHurwitz(coeffVector)
-
+syms epss;
 tableLength = length(coeffVector);
 numColumns = round(tableLength/2);
 %init table
@@ -13,19 +13,20 @@ if (rem(tableLength,2) ~= 0)
 else
     % if even, second row of table will be
     routhTable(2,:) = coeffVector(1,2:2:tableLength);
-endif
-%  Set epss as a small value
-epss = 0.01;
-
+end
 %Check the first collumn for 0s
 
 
-if routhTable(1,1) == 0 || routhTable(2,1) == 0
-    fprintf("\n Zero in the first Collumn\n")
-    fprintf("\n Routh Table so Far\n")
-    routhTable
-    return;
-    endif
+if routhTable(1,1) == 0
+    fprintf("\n Zero in the first Collumn Occurred\n")
+    routhTable(1,1) = epss;
+end
+if routhTable(2,1) == 0
+    fprintf("\n Zero in the first Collumn Occurred\n")
+    routhTable(2,1) = epss;
+end
+
+
 
 
 %% Calculate Routh-Hurwitz table's rows
@@ -35,14 +36,21 @@ if routhTable(1,1) == 0 || routhTable(2,1) == 0
 % j = current collumn
 for i = 3:tableLength
   
-  
+   
    %"Special Case: Row of all zeros
     if routhTable(i-1,:) == 0
       fprintf("\n Row of Zeros occurred\n")
       fprintf("\n Routh Table so Far\n")
-      routhTable
+      disp(routhTable)
       return
-    endif
+    end
+
+    %Special Case: Zero in first collumn
+    if routhTable(i-1,1)==0
+        fprintf("\nZero in first collumn occurred\n")
+        routhTable(i-1,1) = epss;
+    end
+        
     
     
     for j = 1:numColumns - 1
@@ -61,15 +69,15 @@ for i = 3:tableLength
         currentDetMat = [leftTop,rightTop; leftBottom, rightBottom];
         
         routhTable(i,j) = -1 * det(currentDetMat) / leftBottom;
-    endfor
+    end
 
-endfor
+end
 
 fprintf("\n Final Routh Table \n")
-routhTable
+disp(routhTable)
 
 Z = routhTable;
 
-endfunction
+end
 
 

@@ -1,5 +1,5 @@
 %HW7_4
-pkg load symbolic
+
 
 syms s
 Hos = s+1

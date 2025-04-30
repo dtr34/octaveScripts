@@ -1,5 +1,5 @@
 % PCB Assembly Helper Robot (PAH)
-pkg load symbolic
+
 
 % Define symbolic variables
 syms d1 d2 theta3 theta4 theta5 L3 L4 L5 L6 Px Py Pz gammaZ gammaY
@@ -29,4 +29,3 @@ for j = 1:length(fields_order)
      fprintf('  %s = %s\n', field, char(sol_value));
 end
     fprintf('\n');
-end

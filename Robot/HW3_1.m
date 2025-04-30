@@ -1,6 +1,6 @@
 clear all;
 clc;
-pkg load symbolic
+%pkg load symbolic
 syms theta1(t) theta2(t) theta3(t) phi1 phi2 phi3 L1 L2 L3 M1 M2 M3
 
 H3to2 = DHtoH(theta3(t) + phi3, 0, -L3, M3);
@@ -25,7 +25,7 @@ dpz = simplify(diff(pz, t))
 
 Jv = [subs(dpx,{dt1,dt2,dt3},{1,0,0}), subs(dpx,{dt1,dt2,dt3},{0,1,0}), subs(dpx,{dt1,dt2,dt3},{0,0,1}) ;subs(dpy,{dt1,dt2,dt3},{1,0,0}), subs(dpy,{dt1,dt2,dt3},{0,1,0}), subs(dpy,{dt1,dt2,dt3},{0,0,1}) ; subs(dpz,{dt1,dt2,dt3},{1,0,0}), subs(dpz,{dt1,dt2,dt3},{0,1,0}), subs(dpz,{dt1,dt2,dt3},{0,0,1})]
 
-#Radial velocity
+%Radial velocity
 R1to0 = H1to0(1:3,1:3)
 H2to0 = H1to0 *H2to1;
 R2to0 = H2to0(1:3,1:3)
