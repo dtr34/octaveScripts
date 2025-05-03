@@ -1,4 +1,4 @@
-function mod_angle = checkRootLocusAngle(tf_sys, s0)
+function out = checkRootLocusAngle(tf_sys, s0)
     % Extract zeros and poles
     z = zero(tf_sys);
     p = pole(tf_sys);
@@ -13,6 +13,7 @@ function mod_angle = checkRootLocusAngle(tf_sys, s0)
     end
     
     % Convert to degrees and normalize to [-180, 180]
-    angle_deg = rad2deg(angle_sum);
-    mod_angle = mod(angle_deg + 180, 360) - 180;
+    out.sum = rad2deg(angle_sum);
+    out.mod = mod(out.sum+ 180, 360) - 180;
+    
 end
