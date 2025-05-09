@@ -10,7 +10,7 @@ eqn = Vi / (R1+Xc) + Vo/ (R2+Xc) ==0
 
 VoSoln = solve(eqn, Vo)
 
-Gs = VoSoln / Vi
+Gs = simplify(VoSoln / Vi)
 
 unitResp = Gs * (1/s)
 vot = ilaplace(unitResp)

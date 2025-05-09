@@ -1,5 +1,4 @@
 %ExamI Rework
-pkg load symbolic
 syms s
 
 %Q1
