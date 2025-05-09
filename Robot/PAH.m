@@ -25,7 +25,7 @@ sol_struct = solnvec{2};  % Use {} to access the i-th solution structure
 fprintf('Solution:\n');
 for j = 1:length(fields_order)
      field = fields_order{j};
-     sol_value = sol_struct.(field);·
+     sol_value = sol_struct.(field);
      fprintf('  %s = %s\n', field, char(sol_value));
 end
     fprintf('\n');
