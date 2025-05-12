@@ -1,3 +1,5 @@
+
+clear;
 % PCB Assembly Helper Robot (PAH)
 
 
@@ -21,7 +23,7 @@ fields_order = {'d1', 'd2', 'theta3', 'theta4', 'theta5'};
 % Determine the number of solutions (solnvec is a cell array)
 num_solutions = numel(solnvec);
 
-sol_struct = solnvec{2};  % Use {} to access the i-th solution structure
+sol_struct = solnvec(1);  % Use {} to access the i-th solution structure
 fprintf('Solution:\n');
 for j = 1:length(fields_order)
      field = fields_order{j};
